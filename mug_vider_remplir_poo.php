@@ -12,7 +12,6 @@ class Mug
 	public function casserMug()
 	{
 		echo $this->level = "Mug cassée";
-		// die;
 	}
 
 	public function remplir($levelAdd)
