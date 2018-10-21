@@ -26,8 +26,9 @@ class Mug
 
 	public function vider($levelMinus)
 	{
-		
-		$this->level -= $levelMinus;
+		if (is_int($this->level)) {
+			$this->level -= $levelMinus;
+		}
 	}
 
 	public function getLevel()
