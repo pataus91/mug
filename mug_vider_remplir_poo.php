@@ -9,24 +9,24 @@ class Mug
 		$this->level = $level;
 	}
 
-	public function casserMug()
-	{
-		echo $this->level = "Mug cassée";
-		// die;
-	}
+	// public function casserMug()
+	// {
+	// 	echo $this->status = "Mug cassée";
+	// }
 
 	public function remplir($levelAdd)
 	{
 		$this->level += $levelAdd;
-		if ($this->level > 100){
-			$this->casserMug();
-		} 
+		if ($this->level > 100) {
+			$this->level = 100;
+		}
 	}
 
 	public function vider($levelMinus)
 	{
-		if (is_int($this->level)) {
-			$this->level -= $levelMinus;
+		$this->level -= $levelMinus;
+		if ($this->level < 0) {
+			$this->level = 0;
 		}
 	}
 
@@ -36,7 +36,7 @@ class Mug
 	}
 }
 
-$array = [10, 20, 30];
+$array = [10, 20, 30, 80];
 
 foreach ($array as $value) {
 	$mug = new Mug($value);
@@ -47,10 +47,13 @@ foreach ($array as $value) {
 
 $level = 20;
 
-while ($level != "Mug cassée") {
+while ($level < 100) {
 	$mug2 = new Mug($level);
-	$mug2->remplir(25);
-	$mug2->vider(10);
+	$level = $mug2->remplir(25);
+	if ($level >= 100) {
+		$level = 100;
+		die;
+	} 
 	$level = $mug2->getLevel();
 	$result2[] = $level;
 } 
