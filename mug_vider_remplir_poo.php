@@ -12,9 +12,8 @@ class Mug
 	public function casserMug()
 	{
 		echo $this->level = "Mug cassée";
+		// die;
 	}
-
-
 
 	public function remplir($levelAdd)
 	{
@@ -37,7 +36,7 @@ class Mug
 	}
 }
 
-$array = [80, 20, 30];
+$array = [10, 20, 30];
 
 foreach ($array as $value) {
 	$mug = new Mug($value);
@@ -46,7 +45,18 @@ foreach ($array as $value) {
 	$result[] = $mug->getLevel();
 }
 
+$level = 20;
+
+while ($level != "Mug cassée") {
+	$mug2 = new Mug($level);
+	$mug2->remplir(25);
+	$mug2->vider(10);
+	$level = $mug2->getLevel();
+	$result2[] = $level;
+} 
+
 var_dump($result);
+var_dump($result2);
 
 
 
