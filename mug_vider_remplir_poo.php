@@ -2,24 +2,17 @@
 
 class Mug
 {
-	private $level;
-
-	public function __construct($level)
-	{
-		$this->level = $level;
-	}
-
-	// public function casserMug()
-	// {
-	// 	echo $this->status = "Mug cassée";
-	// }
+	private $level = 0;
+	private $broken = false;
 
 	public function remplir($levelAdd)
 	{
-		$this->level += $levelAdd;
-		if ($this->level > 100) {
-			$this->level = 100;
-		}
+		if ($this->isNotBroken()) {
+			$this->level += $levelAdd;
+			if ($this->level > 100) {
+				$this->level = 100;
+			}
+		}	
 	}
 
 	public function vider($levelMinus)
@@ -34,32 +27,53 @@ class Mug
 	{
 		return $this->level;
 	}
+
+
+	public function casser()
+	{
+		$this->level = 0;
+		$this->broken = true;
+	}
+
+	public function isNotBroken()
+	{
+		return !$this->broken;
+	}
 }
 
-$array = [10, 20, 30, 80];
-
-foreach ($array as $value) {
-	$mug = new Mug($value);
-	$mug->remplir(50);
-	$mug->vider(5);
-	$result[] = $mug->getLevel();
-}
-
-$level = 20;
-
-while ($level < 100) {
-	$mug2 = new Mug($level);
-	$level = $mug2->remplir(25);
-	if ($level >= 100) {
-		$level = 100;
+function stopScriptIfMugLevelIsWrong(Mug $mug, $expectedLevel) {
+	if($mug->getLevel() != $expectedLevel) {
+		echo "Error expected: " . $expectedLevel . "\nCurrent level: " . $mug->getLevel() . "\n";
 		die;
-	} 
-	$level = $mug2->getLevel();
-	$result2[] = $level;
-} 
+	}
+}
 
-var_dump($result);
-var_dump($result2);
+$mug = new Mug();
+stopScriptIfMugLevelIsWrong($mug, 0);
+
+$mug->remplir(40);
+stopScriptIfMugLevelIsWrong($mug, 40);
+
+$mug->remplir(35);
+stopScriptIfMugLevelIsWrong($mug, 75);
+
+$mug->vider(20);
+stopScriptIfMugLevelIsWrong($mug, 55);
+
+$mug->vider(53);
+stopScriptIfMugLevelIsWrong($mug, 2);
+
+$mug->casser();
+stopScriptIfMugLevelIsWrong($mug, 0);
+
+$mug->remplir(30);
+stopScriptIfMugLevelIsWrong($mug, 0);
+
+
+
+
+
+
 
 
 
