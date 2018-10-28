@@ -5,7 +5,7 @@ class Mug
 	private $level = 0;
 	private $broken = false;
 
-	public function remplir($levelAdd)
+	public function fill($levelAdd)
 	{
 		if ($this->isNotBroken()) {
 			$this->level += $levelAdd;
@@ -15,7 +15,7 @@ class Mug
 		}	
 	}
 
-	public function vider($levelMinus)
+	public function empty($levelMinus)
 	{
 		$this->level -= $levelMinus;
 		if ($this->level < 0) {
@@ -29,7 +29,7 @@ class Mug
 	}
 
 
-	public function casser()
+	public function break()
 	{
 		$this->level = 0;
 		$this->broken = true;
@@ -51,22 +51,22 @@ function stopScriptIfMugLevelIsWrong(Mug $mug, $expectedLevel) {
 $mug = new Mug();
 stopScriptIfMugLevelIsWrong($mug, 0);
 
-$mug->remplir(40);
+$mug->fill(40);
 stopScriptIfMugLevelIsWrong($mug, 40);
 
-$mug->remplir(35);
+$mug->fill(35);
 stopScriptIfMugLevelIsWrong($mug, 75);
 
-$mug->vider(20);
+$mug->empty(20);
 stopScriptIfMugLevelIsWrong($mug, 55);
 
-$mug->vider(53);
+$mug->empty(53);
 stopScriptIfMugLevelIsWrong($mug, 2);
 
-$mug->casser();
+$mug->break();
 stopScriptIfMugLevelIsWrong($mug, 0);
 
-$mug->remplir(30);
+$mug->fill(30);
 stopScriptIfMugLevelIsWrong($mug, 0);
 
 
